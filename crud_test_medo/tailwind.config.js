@@ -10,6 +10,9 @@ module.exports = {
         'medium': '#292F3D',
         'light': '#C97676',
         'lighter': '#F2F2F1'
+      },
+      fontFamily: {
+        serif: ['Noto Serif', 'serif'],
       }
     },
   },
