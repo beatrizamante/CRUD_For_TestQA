@@ -1,4 +1,5 @@
 import React from "react";
+import { ReactComponent as Vinyl } from "../assets/icons/vinyl-record.svg";
 
 // Define props for the Button component, including children and onClick
 interface ButtonProps {
@@ -9,8 +10,9 @@ interface ButtonProps {
 export default class Button extends React.Component<ButtonProps> {
   render() {
     return (
-      <button className="button" onClick={this.props.onClick}>
+      <button onClick={this.props.onClick}>
         {this.props.children}
+        <Vinyl className="w-36 h-36" />
       </button>
     );
   }

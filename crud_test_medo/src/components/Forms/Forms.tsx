@@ -1,4 +1,6 @@
 import React, { useReducer, useState, ChangeEvent } from "react";
+import background from '../../assets/images/vinyl.jpg'
+
 import Button from "../Button";
 import Input from "./Item/Input";
 
@@ -45,9 +47,15 @@ export default function Forms() {
   ];
 
   return (
-    <div className="forms ">
+    <div className="forms bg-darker min-h-screen">
+      <div
+          className="absolute w-full min-h-screen bg-cover opacity-60 mix-blend-soft-light"
+          style={{
+            backgroundImage: `url(${background})`,
+          }}
+        ></div>
       <div>
-        <div>
+        <div className="flex flex-col justify-center">
           {inputConfig.map((input, index) => (
             <Input
               key={index}
@@ -58,7 +66,7 @@ export default function Forms() {
             />
           ))}
         </div>
-        <div className="buttons">
+        <div className="bg-white w-[300px]">
           <Button onClick={handleSubmit}>Create</Button>
         </div>
       </div>

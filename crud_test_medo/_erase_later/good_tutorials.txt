@@ -1,1 +1,3 @@
 https://jeffsegovia.dev/blogs/creating-an-input-with-floating-label-with-tailwindcss
+
+https://daily.dev/blog/reactjs-useform-for-dynamic-forms
