@@ -11,7 +11,7 @@ export default class Card extends React.Component<CardProps> {
     const { imageSrc, title, description } = this.props;
 
     return (
-      <div className="card w-[300px] h-[150px] bg-medium relative shadow-xl">
+      <div className="card w-[300px] h-[150px] bg-medium relative shadow-xl hover:bg-slate-600 hover:translate-y-2 duration-300">
         <div
           className="absolute top-0 left-0 w-full h-full bg-cover"
           style={{

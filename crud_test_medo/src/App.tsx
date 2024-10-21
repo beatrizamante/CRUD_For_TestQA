@@ -1,10 +1,10 @@
-import './App.css';
-import Create from './pages/Create/Create';
+import "./App.css";
+import VinylCase from "./pages/Case/VinylCase";
 
 function App() {
   return (
     <div className="App">
-      <Create/>
+      <VinylCase/>
     </div>
   );
 }

@@ -1,75 +1,44 @@
-import React, { useReducer, useState, ChangeEvent } from "react";
-import background from '../../assets/images/vinyl.jpg'
-
-import Button from "../Button";
+import React, { useReducer, ChangeEvent } from "react";
 import Input from "./Item/Input";
-
-type Vinyl = {
-  band: string;
-  album: string;
-  year: string;
-};
+import { Vinyl } from "../../model/Vinyls";
 
 type VinylAction = {
   [key: string]: string;
 };
 
-export default function Forms() {
-  const [vinylList, setVinylList] = useState<Vinyl[]>([]);
-  const [addVinyl, setAddVinyl] = useReducer(
-    (vinyl: Vinyl, newVinyl: VinylAction) => ({ ...vinyl, ...newVinyl }),
-    {
-      band: "",
-      album: "",
-      year: "",
-    }
+interface VinylFormProps {
+  onSubmit: (vinyl: Vinyl) => void;
+  initialVinyl: Vinyl;
+}
+
+export default function VinylForm({ onSubmit, initialVinyl }: VinylFormProps) {
+  const [vinyl, setVinyl] = useReducer(
+    (state: Vinyl, newState: VinylAction) => ({ ...state, ...newState }),
+    initialVinyl
   );
 
-  const handleAddVinyl = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setAddVinyl({ [name]: value });
-  };
-
-  const handleSubmit = () => {
-    setVinylList((prevList) => [...prevList, addVinyl]);
-
-    setAddVinyl({
-      band: "",
-      album: "",
-      year: "",
-    });
+    setVinyl({ [name]: value });
   };
 
   const inputConfig = [
-    { label: "Band", name: "band", value: addVinyl.band },
-    { label: "Album", name: "album", value: addVinyl.album },
-    { label: "Year", name: "year", value: addVinyl.year },
+    { label: "Band", name: "band", value: vinyl.band },
+    { label: "Album", name: "album", value: vinyl.album },
+    { label: "Year", name: "year", value: vinyl.year },
   ];
 
   return (
-    <div className="forms bg-darker min-h-screen">
-      <div
-          className="absolute w-full min-h-screen bg-cover opacity-60 mix-blend-soft-light"
-          style={{
-            backgroundImage: `url(${background})`,
-          }}
-        ></div>
-      <div>
-        <div className="flex flex-col justify-center">
-          {inputConfig.map((input, index) => (
-            <Input
-              key={index}
-              label={input.label}
-              name={input.name}
-              value={input.value}
-              onChange={handleAddVinyl}
-            />
-          ))}
-        </div>
-        <div className="bg-white w-[300px]">
-          <Button onClick={handleSubmit}>Create</Button>
-        </div>
-      </div>
+    <div className="flex flex-col justify-center">
+      {inputConfig.map((input, index) => (
+        <Input
+          key={index}
+          label={input.label}
+          name={input.name}
+          value={input.value}
+          onChange={handleInputChange}
+        />
+      ))}
     </div>
   );
 }

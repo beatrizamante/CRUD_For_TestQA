@@ -20,7 +20,7 @@ export default class Input extends React.Component<InputProps> {
           placeholder={label}
           value={value}
           onChange={onChange}
-          className="h-[50px] block px-2.5 py-3 w-full text-sm bg-medium bg-opacity-80 appearance-none focus:outline-none disabled:bg-disabled-100 disabled:cursor-not-allowed disabled:text-disabled-100 peer text-lighter"
+          className="h-[60px] block px-2.5 py-3 w-full text-sm bg-medium bg-opacity-80 appearance-none focus:outline-none disabled:bg-disabled-100 disabled:cursor-not-allowed disabled:text-disabled-100 peer text-lighter"
         />
         <label
           className="pointer-events-none select-none absolute cursor-text text-sm text-lighter duration-300 px-1.5 bg-background left-1 top-1/2 -translate-y-1/2 z-[5] origin-[0] peer-focus:px-1.5 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-lighter peer-focus:bg-background"
