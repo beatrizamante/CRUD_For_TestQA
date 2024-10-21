@@ -13,6 +13,9 @@ module.exports = {
       },
       fontFamily: {
         serif: ['Noto Serif', 'serif'],
+      },
+      borderRadius: {
+        'lg': '1.5rem' 
       }
     },
   },

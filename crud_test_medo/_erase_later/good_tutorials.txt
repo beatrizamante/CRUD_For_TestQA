@@ -1,0 +1,1 @@
+https://jeffsegovia.dev/blogs/creating-an-input-with-floating-label-with-tailwindcss

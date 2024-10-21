@@ -31,30 +31,30 @@ export default function home() {
   ];
 
   return (
-    <div className="bg-darker flex flex-col min-h-full">
-      <div
-        className="absolute w-full min-h-full bg-cover opacity-65"
-        style={{
-          backgroundImage: `url(${background})`,
-        }}
-      ></div>
+      <div className="min-h-screen bg-darker flex flex-1 flex-col">
+        <div
+          className="absolute w-full min-h-screen bg-cover opacity-55"
+          style={{
+            backgroundImage: `url(${background})`,
+          }}
+        ></div>
 
-      <div className="space-y-8 pb-8 pt-8">
-        {cards.map((card, index) => (
-          <div
-            key={index}
-            className={`flex ${
-              index % 2 === 0 ? "justify-start" : "justify-end"
-            }`}
-          >
-            <Card
-              imageSrc={card.imageSrc}
-              title={card.title}
-              description={card.description}
-            />
-          </div>
-        ))}
+        <div className="space-y-8 pb-8 pt-10">
+          {cards.map((card, index) => (
+            <div
+              key={index}
+              className={`flex ${
+                index % 2 === 0 ? "justify-start" : "justify-end"
+              }`}
+            >
+              <Card
+                imageSrc={card.imageSrc}
+                title={card.title}
+                description={card.description}
+              />
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
   );
 }

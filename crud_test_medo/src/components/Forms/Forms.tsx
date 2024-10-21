@@ -1,5 +1,6 @@
 import React, { useReducer, useState, ChangeEvent } from "react";
-import Button from "./Button";
+import Button from "../Button";
+import Input from "./Item/Input";
 
 type Vinyl = {
   band: string;
@@ -37,41 +38,28 @@ export default function Forms() {
     });
   };
 
+  const inputConfig = [
+    { label: "Band", name: "band", value: addVinyl.band },
+    { label: "Album", name: "album", value: addVinyl.album },
+    { label: "Year", name: "year", value: addVinyl.year },
+  ];
+
   return (
-    <div className="forms">
+    <div className="forms ">
       <div>
         <div>
-          <label htmlFor="band">Band</label>
-          <input
-            type="text"
-            name="band"
-            value={addVinyl.band}
-            onChange={handleAddVinyl}
-            required
-          />
+          {inputConfig.map((input, index) => (
+            <Input
+              key={index}
+              label={input.label}
+              name={input.name}
+              value={input.value}
+              onChange={handleAddVinyl}
+            />
+          ))}
         </div>
-        <div>
-          <label htmlFor="album">Album</label>
-          <input
-            type="text"
-            name="album"
-            value={addVinyl.album}
-            onChange={handleAddVinyl}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="year">Year</label>
-          <input
-            type="text"
-            name="year"
-            value={addVinyl.year}
-            onChange={handleAddVinyl}
-          />
-        </div>
-
         <div className="buttons">
-          <Button onClick={handleSubmit}>Add Vinyl</Button>
+          <Button onClick={handleSubmit}>Create</Button>
         </div>
       </div>
     </div>
