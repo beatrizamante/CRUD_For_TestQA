@@ -3,7 +3,7 @@ import Forms from "../../components/Forms/Forms";
 import Header from "../../components/Header";
 import Button from "../../components/Button";
 import background from "../../assets/images/vinyl.jpg";
-import { Vinyl } from "../../model/Vinyls";
+import { Vinyl } from "../../model/VinylsType";
 
 export default function Create() {
   const [vinylList, setVinylList] = useState<Vinyl[]>([]);

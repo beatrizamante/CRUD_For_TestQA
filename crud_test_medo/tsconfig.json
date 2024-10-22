@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -18,10 +14,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
-  "include": [
-    "src",
-    "src/declarations.d.ts"
-  ]
+  "ts-node": {
+    "esm": true,
+    "transpileOnly": true,
+    "files": true,
+  },
+  "include": ["src", "src/declarations.d.ts"]
 }
