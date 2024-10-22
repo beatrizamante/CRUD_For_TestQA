@@ -1,10 +1,10 @@
 import "./App.css";
-import Update from "./pages/Update/Update";
+import Router from "./routes/Router";
 
 function App() {
   return (
     <div className="App">
-      <Update/>
+      <Router />
     </div>
   );
 }

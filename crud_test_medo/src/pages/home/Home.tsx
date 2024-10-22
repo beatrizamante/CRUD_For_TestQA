@@ -5,28 +5,34 @@ import readImage from "../../assets/images/vinyl_case.jpg";
 import updateImage from "../../assets/images/casset_case.jpg";
 import deleteImage from "../../assets/images/broken.jpg";
 import background from "../../assets/images/background.jpg";
+import { useNavigate } from "react-router-dom";
 
-export default function home() {
+export default function Home() {
+  const navigate = useNavigate();
   const cards = [
     {
       imageSrc: createImage,
       title: "Create Vinyl",
       description: "Click here to create your Vinyl",
+      route: "create"
     },
     {
       imageSrc: readImage,
       title: "Read Vinyl Case",
       description: "Click here to read your case",
+      route: "case"
     },
     {
       imageSrc: updateImage,
       title: "Update Description",
       description: "Click here to edit your vinyls",
+      route: "update"
     },
     {
       imageSrc: deleteImage,
       title: "Delete a Vinyl",
       description: "Click here to delete a vinyl",
+      route: "delete"
     },
   ];
 
@@ -48,6 +54,7 @@ export default function home() {
               }`}
             >
               <Card
+                onClick={() => navigate(card.route)}
                 imageSrc={card.imageSrc}
                 title={card.title}
                 description={card.description}

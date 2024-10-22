@@ -1,6 +1,6 @@
 import React, { useReducer, ChangeEvent } from "react";
 import Input from "./Item/Input";
-import { Vinyl } from "../../model/VinylsType";
+import { Vinyl } from "../../interfaces/VinylsType";
 
 type VinylAction = {
   [key: string]: string;

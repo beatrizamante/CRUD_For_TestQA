@@ -4,8 +4,10 @@ import Button from "../../components/Button";
 import background from "../../assets/images/vinyl_case.jpg";
 import List from "../../components/List/List";
 import DeleteModal from "../../components/DeleteModal";
+import { useNavigate } from "react-router-dom";
 
 export default function VinylCase() {
+  const navigate = useNavigate();
   const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
 
   const handleDeleteClick = () => {
@@ -34,7 +36,7 @@ export default function VinylCase() {
             Delete
           </Button>
 
-          <Button onClick={() => {}}>Edit</Button>
+          <Button onClick={() => navigate("/update")}>Edit</Button>
         </div>
       </div>
 
