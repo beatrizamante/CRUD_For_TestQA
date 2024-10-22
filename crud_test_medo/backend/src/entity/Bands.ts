@@ -1,20 +1,20 @@
 // src/models/Band.ts
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import { Album } from "./Albums";
+import { Vinyls } from "./Vinyls";
 
 @Entity()
-export class Band {
+export class Bands {
     @PrimaryGeneratedColumn()
     band_id!: number;
 
     @Column({
         type: "varchar",
-        length: 200,
+        length: 50,
         unique: true,
     })
     name!: string;
 
-    @OneToMany(() => Album, (album) => album.band)
-    albuns!: Album[];
+    @OneToMany(() => Vinyls, (vinyl) => vinyl.band)
+    vinyls!: Vinyls[];
 
 }

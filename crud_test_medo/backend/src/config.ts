@@ -1,11 +1,9 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { Album } from "./src/entity/Albums";
-import { Band } from "./src/entity/Bands";
-import { Vinyl } from "./src/entity/Vinyls";
+import { Bands } from "./entity/Bands";
+import { Vinyls } from "./entity/Vinyls";
+import mysql from "mysql2/promise";
 import * as dotenv from "dotenv";
-import mysql from "mysql";
-import { promisify } from "util";
 
 dotenv.config();
 
@@ -16,10 +14,8 @@ async function createDatabase() {
     password: process.env.DB_PASSWORD,
   });
 
-  const query = promisify(connection.query).bind(connection);
-
   try {
-    await query(`CREATE DATABASE IF NOT EXISTS VinylCase`);
+    await connection.query(`CREATE DATABASE IF NOT EXISTS VinylCase`);
     console.log("Database 'VinylCase' has been created or already exists.");
   } catch (err) {
     console.log("Unable to create Database: ", err);
@@ -28,18 +24,20 @@ async function createDatabase() {
   }
 }
 
-async function initializeDataSource() {
-  const AppDataSource = new DataSource({
-    type: "mysql",
-    host: process.env.DB_HOSTNAME,
-    port: Number(process.env.DB_PORT),
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    entities: [Vinyl, Album, Band],
-    synchronize: true,
-    logging: true,
-  });
+export const AppDataSource = new DataSource({
+  type: "mysql",
+  host: process.env.DB_HOSTNAME,
+  port: Number(process.env.DB_PORT),
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  entities: [Vinyls, Bands],
+  synchronize: true,
+  logging: true,
+});
+
+export async function initializeDataSource() {
+console.log(process.env.DB_PASSWORD + "    " + process.env.DB_USERNAME);
 
   try {
     await AppDataSource.initialize();

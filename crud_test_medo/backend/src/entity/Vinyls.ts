@@ -5,23 +5,20 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
-  OneToOne,
 } from "typeorm";
-import { Band } from "./Bands";
-import { Album } from "./Albums";
+import { Bands } from "./Bands";
 
 @Entity()
-export class Vinyl {
+export class Vinyls {
   @PrimaryGeneratedColumn()
   vinyl_id!: number;
 
-  @ManyToOne(() => Band)
+  @ManyToOne(() => Bands)
   @JoinColumn({ name: "band_id" })
-  band!: Band;
+  band!: Bands;
 
-  @OneToOne(() => Album)
-  @JoinColumn({ name: "album_id" })
-  album!: Album;
+  @Column({ type: "varchar", length: 60 })
+  title!: string;
 
   @Column({ nullable: true, type: "int" })
   year?: number;

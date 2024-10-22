@@ -23,5 +23,5 @@
     "transpileOnly": true,
     "files": true,
   },
-  "include": ["src", "src/declarations.d.ts", "backend/config.ts", "backend/src/entity/Vinyls.ts", "backend/src/entity/Albums.ts", "backend/src/entity/Bands.ts"]
+  "include": ["src", "src/declarations.d.ts", "backend/src/config.ts", "backend/src/entity/Vinyls.ts", "backend/src/entity/Albums.ts", "backend/src/entity/Bands.ts", "backend/src/controller/vinyl.controller.ts"]
 }
