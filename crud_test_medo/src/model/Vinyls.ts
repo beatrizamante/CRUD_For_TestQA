@@ -23,6 +23,6 @@ export class Vinyl {
   @JoinColumn({ name: "album_id" })
   album!: Album;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: "int" })
   year?: number;
 }
