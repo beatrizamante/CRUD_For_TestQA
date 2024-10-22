@@ -6,63 +6,9 @@ export default function List() {
     {
       band: "Rolling Stones",
       album: "Best Of",
+      year: 1295
     },
-    {
-      band: "Ray Charles",
-      album: "Volume Two",
-    },
-    {
-      band: "Rolling Stones",
-      album: "Best Of",
-    },
-    {
-      band: "Ray Charles",
-      album: "Volume Two",
-    },
-    {
-      band: "Ray Charles",
-      album: "Volume Two",
-    },
-    {
-      band: "Rolling Stones",
-      album: "Best Of",
-    },
-    {
-      band: "Ray Charles",
-      album: "Volume Two",
-    },
-    {
-      band: "Rolling Stones",
-      album: "Best Of",
-    },
-    {
-      band: "Ray Charles",
-      album: "Volume Two",
-    },
-    {
-      band: "Ray Charles",
-      album: "Volume Two",
-    },
-    {
-      band: "Rolling Stones",
-      album: "Best Of",
-    },
-    {
-      band: "Ray Charles",
-      album: "Volume Two",
-    },
-    {
-      band: "Rolling Stones",
-      album: "Best Of",
-    },
-    {
-      band: "Ray Charles",
-      album: "Volume Two",
-    },
-    {
-      band: "Ray Charles",
-      album: "Volume Two",
-    },
+    
     
   ];
 

@@ -32,7 +32,7 @@ export default function Home() {
       imageSrc: deleteImage,
       title: "Delete a Vinyl",
       description: "Click here to delete a vinyl",
-      route: "delete"
+      route: "case"
     },
   ];
 
