@@ -8,8 +8,7 @@ import { Vinyl } from "../../interfaces/VinylsType";
 import { useState } from 'react';
 
 export default function Create() {
-  const initialVinyl: Vinyl = { band: "", title: "", year: "" };
-  const [newVinyl, setNewVinyl] = useState<Vinyl>(initialVinyl);
+  const [newVinyl, setNewVinyl] = useState<Vinyl>({ band: "", title: "", year: "" });
   
   const handleCreate = async () => {
     try{

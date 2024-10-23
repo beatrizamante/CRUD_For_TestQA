@@ -9,12 +9,12 @@ import { Vinyl } from "../../interfaces/VinylsType";
 
 export default function Update() {
   const { id } = useParams<{id: string}>();
-  const vinyl: Vinyl = { band: "", title: "", year: "" };
+  const [editVinyl, setEditVinyl] = useState<Vinyl>({ band: "", title: "", year: "" });
 
   const handleUpdate = async () => {
     try {
       if(id) {
-        await apiClient.updateVinyl(id, vinyl);
+        await apiClient.updateVinyl(id, editVinyl);
       } else {
         console.error("Vinyl ID is missing!");
       }
@@ -22,7 +22,6 @@ export default function Update() {
       console.error("An error occured: ", err);
     }
   };
-  
 
   return (
     <div className="forms bg-darker min-h-screen">
@@ -35,10 +34,9 @@ export default function Update() {
       <Header>Edit Vinyl</Header>
       <div>
         <div>
-          <Forms
-            onSubmit={() => {}}
-            initialVinyl={{ band: "", title: "", year: "" }}
-          />
+          <Forms 
+          searchedVinyl={editVinyl} 
+          setSearchedVinyl={setEditVinyl}          />
         </div>
         <div className="absolute flex bottom-0 flex-row right-4">
           <Button onClick={handleUpdate}>Update</Button>
