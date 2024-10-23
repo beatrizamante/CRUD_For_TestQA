@@ -7,17 +7,17 @@ type VinylAction = {
 };
 
 interface VinylFormProps {
-  onSubmit: (vinyl: Vinyl) => void;
-  initialVinyl: Vinyl;
+  searchedVinyl: Vinyl;
+  setSearchedVinyl: (searchedVinyl: Vinyl) => void;
 }
 
-export default function VinylForm({ onSubmit, initialVinyl }: VinylFormProps) {
+export default function VinylForm({ searchedVinyl, setSearchedVinyl }: VinylFormProps) {
   const [vinyl, setVinyl] = useReducer(
     (state: Vinyl, newState: VinylAction) => ({ ...state, ...newState }),
-    initialVinyl
+    searchedVinyl
   );
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const { name, value } = event.target;
     setVinyl({ [name]: value });
   };

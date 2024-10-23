@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import Forms from "../../components/Forms/Forms";
 import Header from "../../components/Header";
 import Button from "../../components/Button";
 import background from "../../assets/images/vinyl.jpg";
 import apiClient from "../../api";
 import { Vinyl } from "../../interfaces/VinylsType";
+import { useState } from 'react';
 
 export default function Create() {
-  const [vinyl, setVinylList] = useState<Vinyl>();
+  const initialVinyl: Vinyl = { band: "", title: "", year: "" };
+  const [newVinyl, setNewVinyl] = useState<Vinyl>(initialVinyl);
   
-  const handleCreate = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault();
-
+  const handleCreate = async () => {
     try{
-      if(vinyl) {
-        await apiClient.postVinyl(vinyl);
+      if(newVinyl) {
+        await apiClient.postVinyl(newVinyl);
         console.log("Vinyl successfully created.");
       } else {
         console.error("Couldn't create vinyl");
@@ -35,10 +35,10 @@ export default function Create() {
       <Header> Create Vinyl</Header>
       <div>
         <div>
-          <Forms
-            onSubmit={() => {}}
-            initialVinyl={{ band: "", title: "", year: "" }}
-          />
+          <Forms 
+            searchedVinyl={newVinyl} 
+            setSearchedVinyl={setNewVinyl}
+                 />
         </div>
         <div className="absolute bottom-0 right-4">
           <Button onClick={handleCreate}>Create</Button>

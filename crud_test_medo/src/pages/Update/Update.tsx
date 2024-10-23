@@ -5,10 +5,11 @@ import Button from "../../components/Button";
 import background from "../../assets/images/casset_case.jpg";
 import apiClient from "../../api"
 import { useParams } from "react-router-dom";
+import { Vinyl } from "../../interfaces/VinylsType";
 
 export default function Update() {
   const { id } = useParams<{id: string}>();
-  const [vinyl, setVinyl] = useState( {band: "", title: "", year: ""} );
+  const vinyl: Vinyl = { band: "", title: "", year: "" };
 
   const handleUpdate = async () => {
     try {
