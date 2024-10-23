@@ -12,8 +12,8 @@ export default {
     return apiClient.get("/api/vinyls");
   },
 
-  postVinyl() {
-    return apiClient.post("/api/vinyls");
+  postVinyl(data: Object) {
+    return apiClient.post("/api/vinyls", data);
   },
 
   deleteVinyl(index: string) {
@@ -24,7 +24,7 @@ export default {
     return apiClient.delete(`/api/vinyls/${vinyl_id}`);
   },
 
-  updateVinyl(vinyl_id: string, band: string, title: string, year: number) {
-    return apiClient.put(`/api/vinyls/${vinyl_id}`);
+  updateVinyl(vinyl_id: string, data: Object) {
+    return apiClient.put(`/api/vinyls/${vinyl_id}`, data);
   },
 };
