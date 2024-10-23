@@ -26,7 +26,7 @@ export default function Create() {
         <div>
           <Forms
             onSubmit={handleCreateVinyl}
-            initialVinyl={{ band: "", album: "", year: "" }}
+            initialVinyl={{ band: "", title: "", year: "" }}
           />
         </div>
         <div className="absolute bottom-0 right-4">

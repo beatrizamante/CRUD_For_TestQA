@@ -1,6 +1,6 @@
 export interface Vinyl {
     band: string;
-    album: string;
+    title: string;
     year: string;
   }
   

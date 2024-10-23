@@ -1,11 +1,12 @@
 import React from "react";
 import Item from "./Item";
+import { title } from "process";
 
 export default function List() {
   const vinyls = [
     {
       band: "Rolling Stones",
-      album: "Best Of",
+      title: "Best Of",
       year: 1295
     },
     

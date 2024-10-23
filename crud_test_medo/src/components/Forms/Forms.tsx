@@ -24,7 +24,7 @@ export default function VinylForm({ onSubmit, initialVinyl }: VinylFormProps) {
 
   const inputConfig = [
     { label: "Band", name: "band", value: vinyl.band },
-    { label: "Album", name: "album", value: vinyl.album },
+    { label: "Title", name: "title", value: vinyl.title },
     { label: "Year", name: "year", value: vinyl.year },
   ];
 

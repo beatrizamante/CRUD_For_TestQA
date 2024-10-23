@@ -4,18 +4,26 @@ import Button from "../../components/Button";
 import background from "../../assets/images/vinyl_case.jpg";
 import List from "../../components/List/List";
 import DeleteModal from "../../components/DeleteModal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import apiClient from "../../api";
 
 export default function VinylCase() {
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  const handleDeleteClick = () => {
-    setDeleteModalVisible(true);
-  };
-
-  const handleCloseModal = () => {
-    setDeleteModalVisible(false);
+  const handleDelete = async () => {
+    try {
+      if (id) {
+        await apiClient.deleteVinyl(id);
+        console.log("Deletion successfull");
+        setShowModal(false);
+      } else {
+        console.error("Vinyl ID is missing!");
+      }
+    } catch (err) {
+      console.error("An error occured: ", err);
+    }
   };
 
   return (
@@ -32,7 +40,7 @@ export default function VinylCase() {
           <List />
         </div>
         <div className="absolute bottom-0 flex flex-row right-4 left-4 justify-between">
-          <Button onClick={handleDeleteClick} variant="inverted">
+          <Button onClick={() => setShowModal(true)} variant="inverted">
             Delete
           </Button>
 
@@ -40,10 +48,17 @@ export default function VinylCase() {
         </div>
       </div>
 
-      {<DeleteModal isVisible={false} onClose={() => {}}/>}
+      {
+        <DeleteModal
+          isVisible={false}
+          onConfirm={() => {}}
+          onCancel={() => {}}
+        />
+      }
       <DeleteModal
-        isVisible={isDeleteModalVisible}
-        onClose={handleCloseModal}
+        isVisible={showModal}
+        onCancel={() => setShowModal(false)}
+        onConfirm={handleDelete}
       />
     </div>
   );

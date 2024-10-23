@@ -4,10 +4,11 @@ import Button from "./Button";
 
 interface DeleteModalProps {
   isVisible: boolean;
-  onClose: () => void; 
+  onConfirm: () => void;
+  onCancel: () => void; 
 }
 
-export default function DeleteModal({ isVisible, onClose }: DeleteModalProps) {
+export default function DeleteModal({ isVisible, onCancel, onConfirm }: DeleteModalProps) {
   if (!isVisible) return null;
 
   return (
@@ -23,8 +24,8 @@ export default function DeleteModal({ isVisible, onClose }: DeleteModalProps) {
           <p>Are you sure you want to destroy this vinyl?</p>
         </div>
         <div className="relative z-10 flex flex-row right-4 left-4 justify-between px-8">
-          <Button onClick={onClose}>No</Button>
-          <Button onClick={onClose} variant="inverted">Yes</Button>
+          <Button onClick={onCancel}>No</Button>
+          <Button onClick={onConfirm} variant="inverted">Yes</Button>
         </div>
       </div>
     </div>
