@@ -1,7 +1,7 @@
 import React from "react";
 import { ReactComponent as Vinyl } from "../assets/icons/vinyl-record-svgrepo-com.svg";
 interface ButtonProps {
-  onClick: () => void;
+  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   children: React.ReactNode;
   variant?: "normal" | "inverted";
 }
