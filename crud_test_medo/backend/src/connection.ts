@@ -37,8 +37,6 @@ export const AppDataSource = new DataSource({
 });
 
 export async function initializeDataSource() {
-console.log(process.env.DB_PASSWORD + "    " + process.env.DB_USERNAME);
-
   try {
     await AppDataSource.initialize();
     console.log("Connected to Database");

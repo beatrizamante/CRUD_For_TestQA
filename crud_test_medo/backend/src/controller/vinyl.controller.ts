@@ -1,10 +1,11 @@
 import { Response } from 'express';
 import { CustomRequest } from './../interface/CustomRequest';
-import { AppDataSource } from "../config";
+import { AppDataSource } from "../connection";
 import { Vinyls } from "../entity/Vinyls";
 import { Bands } from "../entity/Bands";
 
 export default class VinylController {
+    
   static listAllVinyls = async (req: CustomRequest<{ bandName: string; title: string; year: number }>, res: Response) => {
     try {
       const vinyls = await AppDataSource.getRepository(Vinyls).find();
@@ -35,6 +36,7 @@ export default class VinylController {
         band: band,
         year: year,
       });
+
       const result = await vinylRepository.save(vinyl);
 
       res.status(201).json(result);
@@ -68,7 +70,6 @@ export default class VinylController {
         }
 
         vinyl.band = band;
-
         vinyl.title = title || vinyl.title;
         vinyl.year = year || vinyl.year;
 
@@ -91,8 +92,7 @@ export default class VinylController {
       if (result.affected === 0) {
         return res.status(404).json({ message: "Vinyl Not Found" });
       }
-
-      res.json();
+      res.status(200).json();
     } catch (err) {
       console.error("Error breaking vinyl", err);
       res.status(500).json({ message: "Error breaking vinyl." });
