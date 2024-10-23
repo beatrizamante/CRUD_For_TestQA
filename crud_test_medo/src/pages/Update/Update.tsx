@@ -5,29 +5,34 @@ import Button from "../../components/Button";
 import background from "../../assets/images/casset_case.jpg";
 
 export default function Update() {
+  // const handleDelete = async () => {
+  //   try {
 
-  
+  //   } catch (err) {
+  //     console.error("An error occured: ", err);
+  //   }}
 
-  return (
-    <div className="forms bg-darker min-h-screen">
-      <div
-        className="absolute w-full min-h-screen flex-1 bg-cover opacity-70 mix-blend-soft-light"
-        style={{
-          backgroundImage: `url(${background})`,
-        }}
-      ></div>
-      <Header>Edit Vinyl</Header>
-      <div>
+    return (
+      <div className="forms bg-darker min-h-screen">
+        <div
+          className="absolute w-full min-h-screen flex-1 bg-cover opacity-70 mix-blend-soft-light"
+          style={{
+            backgroundImage: `url(${background})`,
+          }}
+        ></div>
+        <Header>Edit Vinyl</Header>
         <div>
-          <Forms
-            onSubmit={() => {}}
-            initialVinyl={{ band: "", album: "", year: "" }}
-          />
-        </div>
-        <div className="absolute flex bottom-0 flex-row right-4">
-          <Button onClick={() => {}}>Update</Button>
+          <div>
+            <Forms
+              onSubmit={() => {}}
+              initialVinyl={{ band: "", album: "", year: "" }}
+            />
+          </div>
+          <div className="absolute flex bottom-0 flex-row right-4">
+            <Button onClick={() => {}}>Update</Button>
+          </div>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  };
+

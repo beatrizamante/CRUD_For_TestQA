@@ -1,6 +1,5 @@
 import React from "react";
 import { ReactComponent as Vinyl } from "../assets/icons/vinyl-record-svgrepo-com.svg";
-
 interface ButtonProps {
   onClick: () => void;
   children: React.ReactNode;
