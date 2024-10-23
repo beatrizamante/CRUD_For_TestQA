@@ -1,12 +1,13 @@
-import { Response } from 'express';
-import { CustomRequest } from './../interface/CustomRequest';
+import { Response } from "express";
+import { CustomRequest } from "./../interface/CustomRequest";
 import { AppDataSource } from "../connection";
 import { Vinyls } from "../entity/Vinyls";
-import { Bands } from "../entity/Bands";
 
 export default class VinylController {
-    
-  static listAllVinyls = async (req: CustomRequest<{ bandName: string; title: string; year: number }>, res: Response) => {
+  static listAllVinyls = async (
+    req: CustomRequest<{ band: string; title: string; year: number }>,
+    res: Response
+  ) => {
     try {
       const vinyls = await AppDataSource.getRepository(Vinyls).find();
       res.status(200).json(vinyls);
@@ -18,19 +19,20 @@ export default class VinylController {
     }
   };
 
-  static createNewVinyl = async (req: CustomRequest<{ bandName: string; title: string; year: number }>, res: Response) => {
-    const { bandName, title, year } = req.body;
-    const bandRepository = AppDataSource.getRepository(Bands);
+  static createNewVinyl = async (
+    req: CustomRequest<{ band: string; title: string; year: number }>,
+    res: Response
+  ) => {
+    const { band, title, year } = req.body;
     const vinylRepository = AppDataSource.getRepository(Vinyls);
 
+    if (!band || !title) {
+      return res
+        .status(400)
+        .json({ message: "Band name and title are required." });
+    }
+
     try {
-      let band = await bandRepository.findOneBy({ name: bandName });
-
-      if (!band) {
-        band = bandRepository.create({ name: bandName });
-        await bandRepository.save(band);
-      }
-
       const vinyl = vinylRepository.create({
         title: title,
         band: band,
@@ -46,44 +48,39 @@ export default class VinylController {
     }
   };
 
-  static editVinyl = async (req: CustomRequest<{ bandName: string; title: string; year: number }>, res: Response) => {
-    const { bandName, title, year } = req.body;
-    const bandRepository = AppDataSource.getRepository(Bands);
+  static editVinyl = async (
+    req: CustomRequest<{ band: string; title: string; year: number }>,
+    res: Response
+  ) => {
+    const { band, title, year } = req.body;
     const vinylRepository = AppDataSource.getRepository(Vinyls);
 
     try {
       const vinyl = await vinylRepository.findOne({
         where: { vinyl_id: parseInt(req.params.id) },
-        relations: ["band"],
       });
 
       if (!vinyl) {
         return res.status(404).json({ message: "Vinyl Not Found!" });
       }
 
-      if (bandName && bandName !== vinyl.band.name) {
-        let band = await bandRepository.findOneBy({ name: bandName });
+      vinyl.band = band || vinyl.band;
+      vinyl.title = title || vinyl.title;
+      vinyl.year = year || vinyl.year;
 
-        if (!band) {
-          band = bandRepository.create({ name: bandName });
-          await bandRepository.save(band);
-        }
+      const result = await vinylRepository.save(vinyl);
 
-        vinyl.band = band;
-        vinyl.title = title || vinyl.title;
-        vinyl.year = year || vinyl.year;
-
-        const result = await vinylRepository.save(vinyl);
-
-        res.status(200).json(result);
-      }
+      res.status(200).json(result);
     } catch (err) {
       console.error("Error updating vinyl", err);
       res.status(500).json();
     }
   };
 
-  static deleteVinyl = async (req: CustomRequest<{ bandName: string; title: string; year: number }>, res: Response) => {
+  static deleteVinyl = async (
+    req: CustomRequest<{ bandName: string; title: string; year: number }>,
+    res: Response
+  ) => {
     try {
       const result = await AppDataSource.getRepository(Vinyls).delete(
         req.params.id

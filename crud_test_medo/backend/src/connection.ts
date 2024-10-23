@@ -1,6 +1,5 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { Bands } from "./entity/Bands";
 import { Vinyls } from "./entity/Vinyls";
 import mysql from "mysql2/promise";
 import * as dotenv from "dotenv";
@@ -31,7 +30,7 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [Vinyls, Bands],
+  entities: [Vinyls],
   synchronize: true,
   logging: true,
 });
