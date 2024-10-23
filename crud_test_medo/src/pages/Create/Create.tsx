@@ -5,23 +5,28 @@ import Button from "../../components/Button";
 import background from "../../assets/images/vinyl.jpg";
 import apiClient from "../../api";
 import { Vinyl } from "../../interfaces/VinylsType";
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function Create() {
-  const [newVinyl, setNewVinyl] = useState<Vinyl>({ band: "", title: "", year: "" });
-  
+  const [newVinyl, setNewVinyl] = useState<Vinyl>({
+    id: 0,
+    band: "",
+    title: "",
+    year: 0,
+  });
+
   const handleCreate = async () => {
-    try{
-      if(newVinyl) {
-        await apiClient.postVinyl(newVinyl);
+    try {
+      if (newVinyl) {
+        await apiClient.postVinyl({ ...newVinyl, year: Number(newVinyl.year) });
         console.log("Vinyl successfully created.");
       } else {
         console.error("Couldn't create vinyl");
       }
-    } catch(err) {
-      console.error("An error occured: ", err)
-    };
-  }
+    } catch (err) {
+      console.error("An error occured: ", err);
+    }
+  };
 
   return (
     <div className="forms bg-darker min-h-screen">
@@ -34,10 +39,7 @@ export default function Create() {
       <Header> Create Vinyl</Header>
       <div>
         <div>
-          <Forms 
-            searchedVinyl={newVinyl} 
-            setSearchedVinyl={setNewVinyl}
-                 />
+          <Forms searchedVinyl={newVinyl} setSearchedVinyl={setNewVinyl} />
         </div>
         <div className="absolute bottom-0 right-4">
           <Button onClick={handleCreate}>Create</Button>

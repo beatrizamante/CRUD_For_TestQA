@@ -1,4 +1,4 @@
-import React, { useReducer, ChangeEvent } from "react";
+import React, { useReducer } from "react";
 import Input from "./Item/Input";
 import { Vinyl } from "../../interfaces/VinylsType";
 
@@ -17,15 +17,16 @@ export default function VinylForm({ searchedVinyl, setSearchedVinyl }: VinylForm
     searchedVinyl
   );
 
-  const handleInputChange = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setVinyl({ [name]: value });
+      setVinyl({ [name]: value });
+    
   };
 
   const inputConfig = [
     { label: "Band", name: "band", value: vinyl.band },
     { label: "Title", name: "title", value: vinyl.title },
-    { label: "Year", name: "year", value: vinyl.year },
+    { label: "Year", name: "year", value: String(vinyl.year) },
   ];
 
   return (

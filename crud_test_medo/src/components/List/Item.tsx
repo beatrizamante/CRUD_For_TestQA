@@ -1,6 +1,13 @@
 import React from "react";
 
-export default function Item({ band, title, year }: {band: string, title: string, year: number}) {
+interface ItemProps {
+  band: string;
+  title: string; 
+  year: number;
+  onClick: () => void;
+}
+
+export default function Item({ band, title, year, onClick }: ItemProps ) {
     
   return (
     <li

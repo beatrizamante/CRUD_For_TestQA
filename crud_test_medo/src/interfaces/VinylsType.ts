@@ -1,7 +1,7 @@
 export interface Vinyl {
-    id: number;
+    id: number; 
     band: string;
     title: string;
-    year: string;
+    year: number;
   }
   

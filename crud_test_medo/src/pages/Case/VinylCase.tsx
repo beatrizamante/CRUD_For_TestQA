@@ -11,6 +11,7 @@ import { Vinyl } from "../../interfaces/VinylsType";
 export default function VinylCase() {
   const { id } = useParams<{ id: string }>();
   const [vinyls, setVinyls] = useState<Vinyl[]>([]);
+  const [selectId, setSelectId] = useState<number>();
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
@@ -30,17 +31,18 @@ export default function VinylCase() {
 
   const handleList = async () => {
     try {
-      const dbVinyls = await apiClient.getVinyl();
+      const response = await apiClient.getVinyl();
+      const dbVinyls = response.data;
       setVinyls(dbVinyls);
-      console.log("Success! Lits formed!");
-    } catch(err) {
+      console.log("Success! Lists formed!");
+    } catch (err) {
       console.error("An error occurred: ", err);
     }
-  }
+  };
 
   useEffect(() => {
     handleList();
-  }, [])
+  }, []);
 
   return (
     <div className="forms bg-darker min-h-screen">
@@ -53,14 +55,28 @@ export default function VinylCase() {
       <Header>Vinyl Case</Header>
       <div>
         <div className="mx-4 mb-4">
-          <List listOfVinyls={vinyls} />
+          <List
+            listOfVinyls={vinyls}
+            onSelectedVinyl={(id) => setSelectId(id)}
+          />
         </div>
         <div className="absolute bottom-0 flex flex-row right-4 left-4 justify-between">
           <Button onClick={() => setShowModal(true)} variant="inverted">
             Delete
           </Button>
 
-          <Button onClick={() => navigate("/update")}>Edit</Button>
+          <Button
+            onClick={() => {
+              if (selectId) {
+                navigate(`/update/${selectId}`);
+              } else {
+                alert("Please select a vinyl item to edit.");
+              }
+            }}
+          >
+            {" "}
+            Edit
+          </Button>
         </div>
       </div>
 
