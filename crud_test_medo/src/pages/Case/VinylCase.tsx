@@ -11,7 +11,7 @@ import { Vinyl } from "../../interfaces/VinylsType";
 export default function VinylCase() {
   const { id } = useParams<{ id: string }>();
   const [vinyls, setVinyls] = useState<Vinyl[]>([]);
-  const [selectId, setSelectId] = useState<number>();
+  const [selectId, setSelectId] = useState<number | null>(null);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
@@ -21,6 +21,7 @@ export default function VinylCase() {
         await apiClient.deleteVinyl(id);
         console.log("Deletion successfull");
         setShowModal(false);
+        handleList();
       } else {
         console.error("Vinyl ID is missing!");
       }

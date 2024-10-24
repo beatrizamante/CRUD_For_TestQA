@@ -12,19 +12,33 @@ export default {
     return apiClient.get("/api/vinyls");
   },
 
-  getVinylById(id: string) {
-    return apiClient.get(`/api/vinyls/${id}`)
+  getVinylById(index: string) {
+      const id = {
+      id: index,
+    };
+    const vinyl_id = JSON.stringify(id)
+    console.log(`${vinyl_id}`)
+    return apiClient.get(`/api/vinyls/${vinyl_id}`)
   },
 
-  postVinyl(vinyl: any) {
-    return apiClient.post("/api/vinyls", vinyl);
+  postVinyl(data: Object) {
+    console.log(`${data}`)
+    return apiClient.post("/api/vinyls", data);
   },
 
-  deleteVinyl(id: string) {
-    return apiClient.delete(`/api/vinyls/${id}`);
+  deleteVinyl(index: string) {
+    const id = {
+      id: index,
+    };
+    const vinyl_id = JSON.stringify(id);
+    console.log(`${vinyl_id}`)
+    return apiClient.delete(`/api/vinyls/${vinyl_id}`);
   },
 
-  updateVinyl(id: string, vinyl: any) {
-    return apiClient.put(`/api/vinyls/${id}`, vinyl);
+  updateVinyl(vinyl_id: string, data: Object) {
+    console.log(`${vinyl_id}`)
+    console.log(`${data}`)
+
+    return apiClient.put(`/api/vinyls/${vinyl_id}`, data);
   },
 };
