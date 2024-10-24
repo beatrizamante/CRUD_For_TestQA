@@ -11,7 +11,7 @@ const Router: React.FC = () => (
             <Route path='/' element={<Home/>} />
             <Route path='/case' element={<VinylCase/>} />
             <Route path='/create' element={<Create/>} />
-            <Route path='/update' element={<Update/>} />
+            <Route path='/update/:id' element={<Update/>} />
             <Route path='/delete' element={<Create/>} />
 
         </Routes>

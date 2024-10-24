@@ -26,7 +26,7 @@ export default function Home() {
       imageSrc: updateImage,
       title: "Update Description",
       description: "Click here to edit your vinyls",
-      route: "update"
+      route: "case"
     },
     {
       imageSrc: deleteImage,

@@ -9,7 +9,7 @@ import { useState } from "react";
 
 export default function Create() {
   const [newVinyl, setNewVinyl] = useState<Vinyl>({
-    id: 0,
+    vinyl_id: 0,
     band: "",
     title: "",
     year: 0,
@@ -17,7 +17,7 @@ export default function Create() {
 
   const handleCreate = async () => {
     try {
-      if (newVinyl) {
+      if (newVinyl.band && newVinyl.title) {
         await apiClient.postVinyl({ ...newVinyl, year: Number(newVinyl.year) });
         console.log("Vinyl successfully created.");
       } else {

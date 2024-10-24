@@ -18,10 +18,12 @@ export default function List({
       <ul>
         {listOfVinyls.map((vinyl) => (
           <Item
-            key={vinyl.id}
-            {...vinyl}
-            onClick={() => onSelectedVinyl(vinyl.id)}
-            isSelected={vinyl.id === selectedVinylId}
+            key={vinyl.vinyl_id}
+            band={vinyl.band}
+            title={vinyl.title}
+            year={vinyl.year}
+            onClick={() => onSelectedVinyl(vinyl.vinyl_id)}
+            isSelected={vinyl.vinyl_id === selectedVinylId}
           />
         ))}
       </ul>

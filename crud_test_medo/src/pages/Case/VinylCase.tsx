@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Header from "../../components/Header";
 import Button from "../../components/Button";
 import background from "../../assets/images/vinyl_case.jpg";
 import List from "../../components/List/List";
 import DeleteModal from "../../components/DeleteModal";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import apiClient from "../../api";
 import { Vinyl } from "../../interfaces/VinylsType";
 
 export default function VinylCase() {
-  const { id } = useParams<{ id: string }>();
   const [vinyls, setVinyls] = useState<Vinyl[]>([]);
   const [selectId, setSelectId] = useState<number | null>(null);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+  // const listRef = useRef<HTMLDivElement>(null);
 
   const handleDelete = async () => {
     try {
-      if (id) {
-        await apiClient.deleteVinyl(id);
+      if (selectId) {
+        await apiClient.deleteVinyl(selectId.toString());
         console.log("Deletion successfull");
         setShowModal(false);
         handleList();
@@ -35,15 +35,28 @@ export default function VinylCase() {
       const response = await apiClient.getVinyl();
       const dbVinyls = response.data;
       setVinyls(dbVinyls);
-      console.log("Success! Lists formed!");
+      console.log("Success! Lists formed!", dbVinyls);
     } catch (err) {
       console.error("An error occurred: ", err);
     }
   };
 
+  // useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     if(listRef.current && !listRef.current.contains(event.target as Node)) {
+  //       setSelectId(null);
+  //     }
+  //   }
+
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return() => {
+  //     document.addEventListener("mousedown", handleClickOutside);
+  //   }
+  // }, []);
+
   useEffect(() => {
     handleList();
-  }, []);
+  }, [])
 
   return (
     <div className="forms bg-darker min-h-screen">
@@ -57,13 +70,25 @@ export default function VinylCase() {
       <div>
         <div className="mx-4 mb-4">
           <List
-            listOfVinyls={vinyls}
-            onSelectedVinyl={(id) => setSelectId(id)}
+            listOfVinyls={vinyls.map((vinyl) => ({
+              ...vinyl,
+              id: vinyl.vinyl_id,
+            }))}
+            onSelectedVinyl={(id: number) => {
+              setSelectId(id);
+            }}
             selectedVinylId={selectId}
           />
         </div>
         <div className="absolute bottom-0 flex flex-row right-4 left-4 justify-between">
-          <Button onClick={() => setShowModal(true)} variant="inverted">
+          <Button
+            onClick={() => {
+              if (selectId) {
+                setShowModal(true);
+              }
+            }}
+            variant="inverted"
+          >
             Delete
           </Button>
 
@@ -71,12 +96,10 @@ export default function VinylCase() {
             onClick={() => {
               if (selectId) {
                 navigate(`/update/${selectId}`);
-              } else {
-                alert("Please select a vinyl item to edit.");
               }
             }}
+            disabled={!selectId}
           >
-            {" "}
             Edit
           </Button>
         </div>

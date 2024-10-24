@@ -20,6 +20,7 @@ export default function VinylForm({ searchedVinyl, setSearchedVinyl }: VinylForm
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
       setVinyl({ [name]: value });
+      setSearchedVinyl({...vinyl, [name]: value});
     
   };
 
@@ -33,7 +34,7 @@ export default function VinylForm({ searchedVinyl, setSearchedVinyl }: VinylForm
     <div className="flex flex-col justify-center">
       {inputConfig.map((input, index) => (
         <Input
-          key={index}
+          key={input.name}
           label={input.label}
           name={input.name}
           value={input.value}

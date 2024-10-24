@@ -12,11 +12,7 @@ export default {
     return apiClient.get("/api/vinyls");
   },
 
-  getVinylById(index: string) {
-      const id = {
-      id: index,
-    };
-    const vinyl_id = JSON.stringify(id)
+  getVinylById(vinyl_id: string) {
     console.log(`${vinyl_id}`)
     return apiClient.get(`/api/vinyls/${vinyl_id}`)
   },
@@ -26,11 +22,7 @@ export default {
     return apiClient.post("/api/vinyls", data);
   },
 
-  deleteVinyl(index: string) {
-    const id = {
-      id: index,
-    };
-    const vinyl_id = JSON.stringify(id);
+  deleteVinyl(vinyl_id: string) {
     console.log(`${vinyl_id}`)
     return apiClient.delete(`/api/vinyls/${vinyl_id}`);
   },

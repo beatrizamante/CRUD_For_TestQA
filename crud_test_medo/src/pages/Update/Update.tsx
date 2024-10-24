@@ -4,48 +4,55 @@ import Header from "../../components/Header";
 import Button from "../../components/Button";
 import background from "../../assets/images/casset_case.jpg";
 import apiClient from "../../api";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Vinyl } from "../../interfaces/VinylsType";
 
 export default function Update() {
   const { id } = useParams<{ id: string }>();
-  const [editVinyl, setEditVinyl] = useState<Vinyl>({
-    id: 0,
-    band: "",
-    title: "",
-    year: 1500,
-  });
+  const navigate = useNavigate();
+  const [editVinyl, setEditVinyl] = useState<Vinyl | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleUpdate = async () => {
     try {
-      if (id) {
+      if (id && editVinyl) {
         await apiClient.updateVinyl(id, {
           ...editVinyl,
           year: Number(editVinyl.year),
         });
+        navigate("/case"); 
       } else {
-        console.error("Vinyl ID is missing!");
+        console.error("Vinyl ID is missing or editVinyl is null!");
       }
     } catch (err) {
-      console.error("An error occured: ", err);
+      console.error("An error occurred: ", err);
     }
   };
 
   useEffect(() => {
+    console.log(id)
     const fetchVinyl = async () => {
-      try {
-        if (id) {
+      if (id) {
+        try {
           const response = await apiClient.getVinylById(id);
           setEditVinyl(response.data);
-        } else {
-          console.error("Error fetching item");
+        } catch (err) {
+          console.error("An error occurred: ", err);
+        } finally {
+          setIsLoading(false);
         }
-      } catch (err) {
-        console.error("An error occured: ", err);
       }
     };
     fetchVinyl();
   }, [id]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!editVinyl) {
+    return <div>Error: Unable to load vinyl data</div>;
+  }
 
   return (
     <div className="forms bg-darker min-h-screen">
@@ -57,11 +64,9 @@ export default function Update() {
       ></div>
       <Header>Edit Vinyl</Header>
       <div>
-        <div>
-          <Forms searchedVinyl={editVinyl} setSearchedVinyl={setEditVinyl} />
-        </div>
+        <Forms searchedVinyl={editVinyl} setSearchedVinyl={setEditVinyl} />
         <div className="absolute flex bottom-0 flex-row right-4">
-          <Button onClick={() => handleUpdate}>Update</Button>
+          <Button onClick={handleUpdate}>Update</Button>
         </div>
       </div>
     </div>
