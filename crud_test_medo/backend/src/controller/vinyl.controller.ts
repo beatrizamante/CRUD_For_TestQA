@@ -4,6 +4,7 @@ import { CustomRequest } from "./../interface/CustomRequest";
 import { Vinyls } from "../entity/Vinyls";
 
 export default class VinylController {
+
   static listAllVinyls = async (
     req: CustomRequest<{ band: string; title: string; year: number }>,
     res: Response
@@ -60,7 +61,7 @@ export default class VinylController {
       if (existingVinyl) {
         existingVinyl.year = year;
         const result = await vinylRepository.save(existingVinyl);
-        return res.status(200).json(result); // 200 OK for update
+        return res.status(200).json(result); 
       }
   
       const newVinyl = vinylRepository.create({
@@ -102,7 +103,6 @@ export default class VinylController {
 
       const result = await vinylRepository.save(vinyl);
 
-      console.log("Updated Vinyl:", result);
       res.status(200).json(result);
     } catch (err) {
       console.error("Error updating vinyl", err);
