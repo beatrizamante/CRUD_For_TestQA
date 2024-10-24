@@ -18,8 +18,14 @@ export default function Create() {
   const handleCreate = async () => {
     try {
       if (newVinyl.band && newVinyl.title) {
-        await apiClient.postVinyl({ ...newVinyl, year: Number(newVinyl.year) });
+        await apiClient.postVinyl({ ...newVinyl });
         console.log("Vinyl successfully created.");
+        setNewVinyl({
+          vinyl_id: 0,
+          band: "",
+          title: "",
+          year: null,
+        });
       } else {
         console.error("Couldn't create vinyl, needs title and band.");
       }

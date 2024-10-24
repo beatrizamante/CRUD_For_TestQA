@@ -37,7 +37,7 @@ export default function VinylCase() {
       const response = await apiClient.getVinyl();
       const dbVinyls = response.data;
       setVinyls(dbVinyls);
-      console.log("Success! Lists formed!", dbVinyls);
+      console.log("Success! List formed!");
     } catch (err) {
       console.error("An error occurred: ", err);
     }

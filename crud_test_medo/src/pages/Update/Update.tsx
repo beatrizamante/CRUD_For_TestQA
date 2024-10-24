@@ -22,8 +22,7 @@ export default function Update() {
     try {
       if (vinylId && editVinyl) {
         await apiClient.updateVinyl(vinylId.toString(), {
-          ...editVinyl,
-          year: Number(editVinyl.year),
+          ...editVinyl
         });
         navigate("/case");
       } else {

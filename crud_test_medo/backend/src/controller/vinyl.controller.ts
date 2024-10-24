@@ -45,28 +45,38 @@ export default class VinylController {
   ) => {
     const { band, title, year } = req.body;
     const vinylRepository = AppDataSource.getRepository(Vinyls);
-
+  
     if (!band || !title) {
       return res
         .status(400)
         .json({ message: "Band name and title are required." });
     }
-
+  
     try {
-      const vinyl = vinylRepository.create({
+      let existingVinyl = await vinylRepository.findOne({
+        where: { band: band, title: title },
+      });
+  
+      if (existingVinyl) {
+        existingVinyl.year = year;
+        const result = await vinylRepository.save(existingVinyl);
+        return res.status(200).json(result); // 200 OK for update
+      }
+  
+      const newVinyl = vinylRepository.create({
         title: title,
         band: band,
         year: year,
       });
-
-      const result = await vinylRepository.save(vinyl);
-
-      res.status(201).json(result);
+  
+      const result = await vinylRepository.save(newVinyl);
+      res.status(201).json(result); 
     } catch (err) {
       console.error("Error creating vinyl", err);
       res.status(400).json({ message: "Error creating vinyl, broken record!" });
     }
   };
+  
 
   static editVinyl = async (
     req: CustomRequest<{ band: string; title: string; year: number }>,
