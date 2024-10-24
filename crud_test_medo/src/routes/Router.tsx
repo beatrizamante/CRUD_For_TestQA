@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import VinylCase from '../pages/Case/VinylCase';
 import Create from '../pages/Create/Create';
 import Update from '../pages/Update/Update';
-import Home from '../pages/home/Home';
+import Home from '../pages/Home/Home';
 
 const Router: React.FC = () => (
 

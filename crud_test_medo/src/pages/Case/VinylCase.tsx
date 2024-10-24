@@ -59,6 +59,7 @@ export default function VinylCase() {
           <List
             listOfVinyls={vinyls}
             onSelectedVinyl={(id) => setSelectId(id)}
+            selectedVinylId={selectId}
           />
         </div>
         <div className="absolute bottom-0 flex flex-row right-4 left-4 justify-between">

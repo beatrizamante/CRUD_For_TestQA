@@ -16,12 +16,12 @@ export default function List({
   return (
     <div className="relative max-h-[500px] overflow-y-auto overflow-x-hidden bg-medium bg-opacity-65 mx-8 py-4 -z-0">
       <ul>
-        {listOfVinyls.map((vinyl, index) => (
+        {listOfVinyls.map((vinyl) => (
           <Item
-            isSelected={vinyl.id === selectedVinylId}
-            onClick={() => onSelectedVinyl(vinyl.id)}
-            key={index}
+            key={vinyl.id}
             {...vinyl}
+            onClick={() => onSelectedVinyl(vinyl.id)}
+            isSelected={vinyl.id === selectedVinylId}
           />
         ))}
       </ul>
