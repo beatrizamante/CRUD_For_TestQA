@@ -7,6 +7,7 @@ import DeleteModal from "../../components/DeleteModal";
 import { useNavigate } from "react-router-dom";
 import apiClient from "../../api";
 import { Vinyl } from "../../interfaces/VinylsType";
+import BackButtom from "../../components/BackButtom";
 
 export default function VinylCase() {
   const [vinyls, setVinyls] = useState<Vinyl[]>([]);
@@ -77,7 +78,11 @@ export default function VinylCase() {
           backgroundImage: `url(${background})`,
         }}
       ></div>
+      <div className="flex flex-row items-center justify-between">
+      <BackButtom
+      onClick={() => navigate(-1) }> {"<"} </BackButtom>
       <Header>Vinyl Case</Header>
+      </div>
       <div>
         <div className="mx-4 mb-4">
           <ul ref={listRef}>
