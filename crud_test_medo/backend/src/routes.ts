@@ -4,6 +4,7 @@ import VinylController from './controller/vinyl.controller'
 const router = express.Router();
 
 router
+.get("/vinyls/:id", VinylController.vinylById)
 .get("/vinyls", VinylController.listAllVinyls)
 .post("/vinyls", VinylController.createNewVinyl)
 .put("/vinyls/:id", VinylController.editVinyl)

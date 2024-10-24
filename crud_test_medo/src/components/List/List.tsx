@@ -17,7 +17,7 @@ export default function List({
     <div className="relative max-h-[500px] overflow-y-auto overflow-x-hidden bg-medium bg-opacity-65 mx-8 py-4 -z-0">
       <ul>
         {listOfVinyls.map((vinyl) => (
-          <Item
+          <Item 
             key={vinyl.vinyl_id}
             band={vinyl.band}
             title={vinyl.title}

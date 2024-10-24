@@ -1,6 +1,6 @@
+import { AppDataSource } from './../connection';
 import { Response } from "express";
 import { CustomRequest } from "./../interface/CustomRequest";
-import { AppDataSource } from "../connection";
 import { Vinyls } from "../entity/Vinyls";
 
 export default class VinylController {
@@ -18,6 +18,26 @@ export default class VinylController {
       });
     }
   };
+
+  static vinylById = async (
+    req: CustomRequest<{ band: string; title: string; year: number }>,
+    res: Response
+  ) => {
+    try {
+      const vinyl = await AppDataSource.getRepository(Vinyls).findOne({
+        where: { vinyl_id: parseInt(req.params.id) }
+      })
+
+      if(vinyl) {
+        res.status(200).json(vinyl);
+      } else {
+        res.status(404).json({ message: 'Vinyl not found' });
+      }
+
+     } catch(err) {
+      console.error("And error occured when finding the id, ", err)
+     }
+  }
 
   static createNewVinyl = async (
     req: CustomRequest<{ band: string; title: string; year: number }>,
@@ -44,7 +64,7 @@ export default class VinylController {
       res.status(201).json(result);
     } catch (err) {
       console.error("Error creating vinyl", err);
-      res.status(500).json({ message: "Error creating vinyl, broken record!" });
+      res.status(400).json({ message: "Error creating vinyl, broken record!" });
     }
   };
 
@@ -64,12 +84,15 @@ export default class VinylController {
         return res.status(404).json({ message: "Vinyl Not Found!" });
       }
 
+      console.log("Vinyl found:", vinyl); 
+
       vinyl.band = band || vinyl.band;
       vinyl.title = title || vinyl.title;
       vinyl.year = year || vinyl.year;
 
       const result = await vinylRepository.save(vinyl);
 
+      console.log("Updated Vinyl:", result);
       res.status(200).json(result);
     } catch (err) {
       console.error("Error updating vinyl", err);

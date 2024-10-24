@@ -13,20 +13,22 @@ export default function VinylCase() {
   const [selectId, setSelectId] = useState<number | null>(null);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-  // const listRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+  const buttonContainerRef = useRef<HTMLDivElement>(null);
 
   const handleDelete = async () => {
     try {
-      if (selectId) {
+      if (selectId != null) {
         await apiClient.deleteVinyl(selectId.toString());
-        console.log("Deletion successfull");
+        console.log("Deletion successful");
         setShowModal(false);
+        setSelectId(null); 
         handleList();
       } else {
         console.error("Vinyl ID is missing!");
       }
     } catch (err) {
-      console.error("An error occured: ", err);
+      console.error("An error occurred: ", err);
     }
   };
 
@@ -41,22 +43,31 @@ export default function VinylCase() {
     }
   };
 
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if(listRef.current && !listRef.current.contains(event.target as Node)) {
-  //       setSelectId(null);
-  //     }
-  //   }
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+      if (
+        listRef.current &&
+        !listRef.current.contains(target) && 
+        buttonContainerRef.current &&
+        !buttonContainerRef.current.contains(target) 
+      ) {
+        if(!showModal) {
+          setSelectId(null); 
+        }
+      }
+    };
 
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return() => {
-  //     document.addEventListener("mousedown", handleClickOutside);
-  //   }
-  // }, []);
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showModal]);
 
   useEffect(() => {
     handleList();
-  }, [])
+  }, []);
 
   return (
     <div className="forms bg-darker min-h-screen">
@@ -69,18 +80,23 @@ export default function VinylCase() {
       <Header>Vinyl Case</Header>
       <div>
         <div className="mx-4 mb-4">
-          <List
-            listOfVinyls={vinyls.map((vinyl) => ({
-              ...vinyl,
-              id: vinyl.vinyl_id,
-            }))}
-            onSelectedVinyl={(id: number) => {
-              setSelectId(id);
-            }}
-            selectedVinylId={selectId}
-          />
+          <ul ref={listRef}>
+            <List
+              listOfVinyls={vinyls.map((vinyl) => ({
+                ...vinyl,
+                id: vinyl.vinyl_id,
+              }))}
+              onSelectedVinyl={(id: number) => {
+                setSelectId(id);
+              }}
+              selectedVinylId={selectId}
+            />
+          </ul>
         </div>
-        <div className="absolute bottom-0 flex flex-row right-4 left-4 justify-between">
+        <div
+          ref={buttonContainerRef}
+          className="absolute bottom-0 flex flex-row right-4 left-4 justify-between"
+        >
           <Button
             onClick={() => {
               if (selectId) {
@@ -105,13 +121,6 @@ export default function VinylCase() {
         </div>
       </div>
 
-      {
-        <DeleteModal
-          isVisible={false}
-          onConfirm={() => {}}
-          onCancel={() => {}}
-        />
-      }
       <DeleteModal
         isVisible={showModal}
         onCancel={() => setShowModal(false)}

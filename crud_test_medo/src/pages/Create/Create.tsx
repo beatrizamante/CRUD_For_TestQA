@@ -12,7 +12,7 @@ export default function Create() {
     vinyl_id: 0,
     band: "",
     title: "",
-    year: 0,
+    year: null,
   });
 
   const handleCreate = async () => {
@@ -21,7 +21,7 @@ export default function Create() {
         await apiClient.postVinyl({ ...newVinyl, year: Number(newVinyl.year) });
         console.log("Vinyl successfully created.");
       } else {
-        console.error("Couldn't create vinyl");
+        console.error("Couldn't create vinyl, needs title and band.");
       }
     } catch (err) {
       console.error("An error occured: ", err);

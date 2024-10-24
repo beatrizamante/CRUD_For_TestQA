@@ -3,7 +3,7 @@ import React from "react";
 interface ItemProps {
   band: string;
   title: string; 
-  year: number;
+  year: number | null;
   isSelected: boolean;
   onClick: () => void;
 }

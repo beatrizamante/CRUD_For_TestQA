@@ -1,10 +1,8 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import Input from "./Item/Input";
 import { Vinyl } from "../../interfaces/VinylsType";
 
-type VinylAction = {
-  [key: string]: string;
-};
+type VinylAction = Partial<Vinyl>
 
 interface VinylFormProps {
   searchedVinyl: Vinyl;
@@ -27,8 +25,12 @@ export default function VinylForm({ searchedVinyl, setSearchedVinyl }: VinylForm
   const inputConfig = [
     { label: "Band", name: "band", value: vinyl.band },
     { label: "Title", name: "title", value: vinyl.title },
-    { label: "Year", name: "year", value: String(vinyl.year) },
+    { label: "Year", name: "year", value: vinyl.year !== null ? String(vinyl.year) : "" },
   ];
+
+  useEffect(() => {
+    setVinyl(searchedVinyl);  
+  }, [searchedVinyl]);
 
   return (
     <div className="flex flex-col justify-center">

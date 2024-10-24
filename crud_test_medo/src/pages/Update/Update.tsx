@@ -9,18 +9,23 @@ import { Vinyl } from "../../interfaces/VinylsType";
 
 export default function Update() {
   const { id } = useParams<{ id: string }>();
+  const vinylId = Number(id);
   const navigate = useNavigate();
-  const [editVinyl, setEditVinyl] = useState<Vinyl | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [editVinyl, setEditVinyl] = useState<Vinyl>({
+    vinyl_id: vinylId,
+    band: "",
+    title: "",
+    year: null,
+  });
 
   const handleUpdate = async () => {
     try {
-      if (id && editVinyl) {
-        await apiClient.updateVinyl(id, {
+      if (vinylId && editVinyl) {
+        await apiClient.updateVinyl(vinylId.toString(), {
           ...editVinyl,
           year: Number(editVinyl.year),
         });
-        navigate("/case"); 
+        navigate("/case");
       } else {
         console.error("Vinyl ID is missing or editVinyl is null!");
       }
@@ -30,29 +35,23 @@ export default function Update() {
   };
 
   useEffect(() => {
-    console.log(id)
     const fetchVinyl = async () => {
-      if (id) {
+      if (vinylId) {
         try {
-          const response = await apiClient.getVinylById(id);
-          setEditVinyl(response.data);
+          const response = await apiClient.getVinylById(vinylId.toString());  
+          if (response.data) {
+            setEditVinyl(response.data);
+          } else {
+            console.error("Unexpected response:", response);
+          }
         } catch (err) {
           console.error("An error occurred: ", err);
-        } finally {
-          setIsLoading(false);
         }
       }
     };
     fetchVinyl();
-  }, [id]);
+  }, [vinylId]);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!editVinyl) {
-    return <div>Error: Unable to load vinyl data</div>;
-  }
 
   return (
     <div className="forms bg-darker min-h-screen">
